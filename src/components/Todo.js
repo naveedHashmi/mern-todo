@@ -6,6 +6,7 @@ const Todo = props => {
       <td>{props.todo.description}</td>
       <td>{props.todo.responsible}</td>
       <td>{props.todo.priority}</td>
+      <td>{props.todo.completed? 'Yes' : 'No'}</td>
       <td>
         <Link to={`/edit/${props.todo._id}`}>Edit</Link>
       </td>

@@ -19,11 +19,12 @@ function TodoList() {
             <th>Description</th>
             <th>Responsible</th>
             <th>Priority</th>
+            <th>Completed</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          { todos.map(todo => <Todo todo={todo} />)}
+          { todos.map(todo => <Todo key={todo._id} todo={todo} />)}
         </tbody>
       </table>
     </div>
