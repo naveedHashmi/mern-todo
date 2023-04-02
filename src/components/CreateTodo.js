@@ -1,9 +1,10 @@
 import { useState } from "react";
+import axios from "axios";
 
 function CreateTodo() {
   const [description, setDescription] = useState('')
   const [responsible, setResponsible] = useState('')
-  const [periority, setPeriority] = useState('')
+  const [priority, setPriority] = useState('')
 
   const onChangeDescriptionHandler = (e) => {
     setDescription(e.target.value)
@@ -13,14 +14,28 @@ function CreateTodo() {
     setResponsible(e.target.value)
   }
 
-  const onChangePeriorityHandler = (e) => {
-    setPeriority(e.target.value)
+  const onChangepriorityHandler = (e) => {
+    setPriority(e.target.value)
   }
 
   const onFormSubmitHandler = (e) => {
     e.preventDefault();
 
-    console.log('Form submitted with values: ', description, responsible, periority)
+    const newTodo = {
+      description: description,
+      responsible: responsible,
+      priority: priority,
+    }
+
+    axios.post('http://localhost:4000/todos/add', newTodo)
+         .then((response) => console.log(response))
+         .catch((error) => console.log(error));
+
+    console.log('Form submitted with values: ', description, responsible, priority)
+
+    setDescription('');
+    setPriority('');
+    setResponsible('');
   }
 
   return (
@@ -47,16 +62,16 @@ function CreateTodo() {
             />
           </div>
           <div className="form-group">
-            <label>Periority: </label>
+            <label>priority: </label>
             <div className="form-check form-check-inline">
               <input
                 type="radio"
-                id="periorityLow"
-                name="periorityOptions"
+                id="priorityLow"
+                name="priorityOptions"
                 className="form-check-input"
                 value='Low'
-                checked={periority=='Low'}
-                onChange={onChangePeriorityHandler}
+                checked={priority=='Low'}
+                onChange={onChangepriorityHandler}
               />
               <label>Low</label>
             </div>
@@ -64,23 +79,23 @@ function CreateTodo() {
               <input
                 type="radio"
                 id="perioritMedium"
-                name="periorityOptions"
+                name="priorityOptions"
                 className="form-check-input"
-                vlaue='Medium'
-                checked={periority=='Medium'}
-                onChange={onChangePeriorityHandler}
+                value='Medium'
+                checked={priority=='Medium'}
+                onChange={onChangepriorityHandler}
               />
               <label>Medium</label>
             </div>
             <div className="form-check form-check-inline">
               <input
                 type="radio"
-                id="periorityHigh"
-                name="periorityOptions"
+                id="priorityHigh"
+                name="priorityOptions"
                 className="form-check-input"
-                vlaue='High'
-                checked={periority=='High'}
-                onChange={onChangePeriorityHandler}
+                value='High'
+                checked={priority=='High'}
+                onChange={onChangepriorityHandler}
               />
               <label>High</label>
             </div>
